@@ -2,5 +2,7 @@
 
 Rails.application.routes.draw do
   # root "articles#index"
-  resources :questions
+  resources :questions do
+    resources :answers, shallow: true
+  end
 end

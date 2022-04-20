@@ -1,0 +1,8 @@
+= form_with(model: [@question, answer] ) do |form|
+  p
+    = form.label :body
+    = form.text_area :body, id: :answer_body, rows: 7, cols: 60
+
+  p = form.hidden_field :question_id
+
+  p = form.submit

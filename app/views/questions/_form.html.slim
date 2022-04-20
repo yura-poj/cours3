@@ -1,0 +1,9 @@
+= form_with(model: question) do |form|
+  p
+    = form.label :title
+    = form.text_field :title
+  p
+    = form.label :body
+    = form.text_area :body, id: :question_body, rows: 7, cols: 60
+
+  p = form.submit

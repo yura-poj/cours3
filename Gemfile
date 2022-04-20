@@ -54,6 +54,8 @@ gem 'slim-rails'
 
 gem 'decent_exposure', '~> 3.0'
 
+gem 'devise'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'debug', platforms: %i[mri mingw x64_mingw]
@@ -80,4 +82,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
+  gem 'launchy'
 end

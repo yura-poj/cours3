@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
+  let(:user) { create(:user) }
   let(:question) { create(:question) }
+
+  before { login(user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do

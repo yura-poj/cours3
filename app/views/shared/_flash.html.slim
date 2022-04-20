@@ -1,0 +1,3 @@
+- if flash.present?
+  - flash.each do |key, message|
+    = content_tag :p, message.html_safe, class: "alert alert-primary d-flex align-items-center", role: key

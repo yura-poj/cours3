@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, except: %i[ index show ]
+  before_action :authenticate_user!, except: %i[index show]
+
   expose :questions, -> { Question.all }
   expose :question
+  expose :answers, -> { question.answers.all }
 
   def create
     if question.save
@@ -22,13 +24,18 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    question.destroy
-    redirect_to questions_path
+    if question.author?(current_user)
+      question.answers.each(&:destroy)
+      question.destroy
+      redirect_to questions_path
+    else
+      redirect_back fallback_location: root_path, alert: 'You have not access'
+    end
   end
 
   private
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, :author_id)
   end
 end

@@ -1,8 +1,10 @@
-= form_with(model: [@question, answer] ) do |form|
+= form_with model: [question, answer], url: question_answers_path(question), method: :post do |form|
   p
     = form.label :body
-    = form.text_area :body, id: :answer_body, rows: 7, cols: 60
+    br = form.text_area :body, id: :answer_body, rows: 3, cols: 60
 
   p = form.hidden_field :question_id
 
-  p = form.submit
+  p = form.hidden_field :author_id, value: current_user&.id
+
+  p = form.submit 'Reply'

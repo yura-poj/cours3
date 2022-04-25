@@ -1,0 +1,22 @@
+h1 = question.title
+p = question.body
+- if question.author?(current_user)
+  p = link_to 'Delete question', question, method: :delete
+
+h2 Reply your answer
+
+- if user_signed_in?
+  = render 'shared/errors', resource: answer ||= nil
+  = render 'answers/form', question: question, answer: Answer.new
+- else
+  p
+    | You need to
+    = ' '
+    = link_to 'log in', new_user_session_path
+
+h2 Answers
+- answers.each do | answer |
+  p
+    = answer.body
+    = ' --- '
+    = link_to 'Delete answer', answer, method: :delete if question.author?(current_user)

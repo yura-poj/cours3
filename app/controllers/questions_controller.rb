@@ -25,7 +25,6 @@ class QuestionsController < ApplicationController
 
   def destroy
     if question.author?(current_user)
-      question.answers.each(&:destroy)
       question.destroy
       redirect_to questions_path
     else

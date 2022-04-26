@@ -10,9 +10,9 @@ class AnswersController < ApplicationController
   def create
     @answer = answers.new(answer_params)
     if @answer.save
-      redirect_back fallback_location: root_path, notice: 'Successfully created'
+      redirect_to @question, notice: 'Successfully created'
     else
-      redirect_back fallback_location: root_path, alert: 'Answer is not created', answer: answer
+      redirect_to @question, alert: 'Answer is not created', answer: answer
     end
   end
 

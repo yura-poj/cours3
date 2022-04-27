@@ -2,6 +2,7 @@
 
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
+  before_action :set_new_answer, only: :show
 
   expose :questions, -> { Question.all }
   expose :question
@@ -36,5 +37,9 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, :author_id)
+  end
+
+  def set_new_answer
+    @answer = Answer.new
   end
 end

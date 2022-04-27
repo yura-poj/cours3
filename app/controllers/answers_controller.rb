@@ -11,8 +11,7 @@ class AnswersController < ApplicationController
     @answer = answers.new(answer_params)
     if @answer.save
       redirect_to @question, notice: 'Successfully created'
-    else
-      redirect_to @question, alert: 'Answer is not created', answer: answer
+      # redirect_to @question, alert: 'Answer is not created', answer: answer
     end
   end
 

@@ -6,8 +6,12 @@ p = question.body
 h2 Reply your answer
 
 - if user_signed_in?
-  = render 'shared/errors', resource: answer ||= nil
-  = render 'answers/form', question: question, answer: Answer.new
+  .anwer-errors
+    = render 'shared/errors', resource: @answer
+  = form_with model: [question, @answer], class: 'new-answer' do |f|
+    = f.label :body, 'Body'
+    = f.text_area :body
+    = f.submit 'Reply'
 - else
   p
     | You need to

@@ -6,22 +6,15 @@ p = question.body
 h2 Reply your answer
 
 - if user_signed_in?
-  .anwer-errors
-    = render 'shared/errors', resource: @answer
-  = form_with model: [question, @answer], class: 'new-answer' do |f|
-    = f.label :body, 'Body'
-    = f.text_area :body
-    = f.submit 'Reply'
+  = turbo_frame_tag Answer.new do
+    div = link_to 'Reply answer', new_question_answer_path(question), data: { turbo_frame: dom_id(Answer.new) }
+
 - else
   p
     | You need to
     = ' '
     = link_to 'log in', new_user_session_path
 
-.answers
-  h2 Answers
-  - answers.each do | answer |
-    p
-      = answer.body
-      = ' --- '
-      = link_to 'Delete answer', answer, method: :delete if question.author?(current_user)
+h2 Answers
+= turbo_frame_tag 'answers' do
+  = render question.answers

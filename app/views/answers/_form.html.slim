@@ -1,10 +1,13 @@
-= form_with model: [question, answer], url: question_answers_path(question), method: :post do |form|
-  p
-    = form.label :body
-    br = form.text_area :body, id: :answer_body, rows: 3, cols: 60
+= turbo_frame_tag answer do
+  = form_with model: [@question, answer] do |form|
+    = render 'shared/errors', resource: answer
 
-  p = form.hidden_field :question_id
+    p
+      = form.label :body
+      br = form.text_area :body, id: :answer_body, rows: 3, cols: 60
 
-  p = form.hidden_field :author_id, value: current_user&.id
+    p = form.hidden_field :question_id
 
-  p = form.submit 'Reply'
+    p = form.hidden_field :author_id, value: current_user&.id
+
+    p = form.submit 'Reply'

@@ -3,24 +3,42 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :question, only: %i[create]
+  before_action :question, only: %i[create new]
   expose :answers, -> { question.answers }
   expose :answer
 
   def create
     @answer = answers.new(answer_params)
-    if @answer.save
-      redirect_to @question, notice: 'Successfully created'
-      # redirect_to @question, alert: 'Answer is not created', answer: answer
+    respond_to do |format|
+      if @answer.save
+        flash.now[:success] = 'Your answer successfully created'
+        format.turbo_stream
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if answer.update(answer_params)
+        flash.now[:success] = 'Your answer successfully updated'
+        format.turbo_stream
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
     end
   end
 
   def destroy
-    if answer.author?(current_user)
-      answer.destroy
-      redirect_back fallback_location: root_path, alert: 'Answer deleted'
-    else
-      redirect_back fallback_location: root_path, alert: 'You have not access'
+    respond_to do |format|
+      if answer.author?(current_user)
+        answer.destroy
+        flash.now[:success] = 'Your answer successfully deleted'
+        format.turbo_stream
+      else
+        format.html { redirect_back fallback_location: root_path, status: :unprocessable_entity }
+      end
     end
   end
 

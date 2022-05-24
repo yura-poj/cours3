@@ -32,7 +32,8 @@ feature 'User can watch question with answers', "
       click_on question.title
     end
 
-    scenario 'create answer' do
+    scenario 'create answer', js: true do
+
       text = 'test text'
       fill_in 'Body', with: text
       click_on 'Reply'

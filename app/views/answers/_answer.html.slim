@@ -1,0 +1,9 @@
+= turbo_frame_tag answer do
+  div
+    p
+      = answer.body
+      - if answer.author?(current_user)
+        = ' --- '
+        = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
+        = ' '
+        = link_to 'Edit', edit_answer_path(answer)

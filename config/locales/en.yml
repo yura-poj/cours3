@@ -31,3 +31,7 @@
 
 en:
   hello: "Hello world"
+  confirm:
+    delete:
+      question: 'You try to delete your question! Are you sure?'
+      answer: 'You try to delete your answer! Are you sure?'

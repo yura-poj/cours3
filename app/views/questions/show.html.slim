@@ -6,8 +6,9 @@ p = question.body
 h2 Reply your answer
 
 - if user_signed_in?
-  = render 'shared/errors', resource: answer ||= nil
-  = render 'answers/form', question: question, answer: Answer.new
+  = turbo_frame_tag Answer.new do
+    div = link_to 'Reply answer', new_question_answer_path(question), data: { turbo_frame: dom_id(Answer.new) }
+
 - else
   p
     | You need to
@@ -15,8 +16,5 @@ h2 Reply your answer
     = link_to 'log in', new_user_session_path
 
 h2 Answers
-- answers.each do | answer |
-  p
-    = answer.body
-    = ' --- '
-    = link_to 'Delete answer', answer, method: :delete if question.author?(current_user)
+= turbo_frame_tag 'answers' do
+  = render question.answers

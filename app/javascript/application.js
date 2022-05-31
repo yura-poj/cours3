@@ -8,3 +8,5 @@ import "controllers"
 import jquery from 'jquery'
 window.$ = jquery
 
+import * as ActiveStorage from "activestorage"
+ActiveStorage.start()

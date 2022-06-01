@@ -80,6 +80,6 @@ RSpec.configure do |config|
   end
 
   config.after(:all) do
-    FileUtils.rm_rf("#{Rails.root}/tmp/storage")
+    FileUtils.rm_rf(Rails.root.join('tmp/storage'))
   end
 end

@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_new_answer, only: :show
 
   expose :questions, -> { Question.with_attached_files.all }
-  expose :question, find: ->(id, scope){ scope.with_attached_files.find(id) }
+  expose :question, find: ->(id, scope) { scope.with_attached_files.find(id) }
   expose :answers, -> { question.answers.all }
 
   def create

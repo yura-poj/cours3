@@ -33,7 +33,6 @@ feature 'User can watch question with answers', "
     end
 
     scenario 'create answer', js: true do
-
       text = 'test text'
       fill_in 'Body', with: text
       click_on 'Reply'

@@ -10,4 +10,8 @@
 
     p = form.hidden_field :author_id, value: current_user&.id
 
+    p
+      = form.label :files
+      = form.file_field :files, multiple: true, direct_upload: true
+
     p = form.submit 'Ask'

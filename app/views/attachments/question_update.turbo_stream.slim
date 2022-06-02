@@ -1,0 +1,3 @@
+- question = @record
+= turbo_stream.replace question, render(question)
+= turbo_stream.prepend('flash', partial: 'shared/flash')

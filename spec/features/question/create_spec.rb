@@ -11,11 +11,8 @@ feature 'User can create question', "
 
   describe 'Authenticated user', js: true do
     background do
-      visit new_user_session_path
+      sign_in(user)
 
-      fill_in 'Email', with: user.email
-      fill_in 'Password', with: user.password
-      click_on 'Log in'
       visit questions_path
       click_on 'Ask question'
     end
@@ -25,7 +22,7 @@ feature 'User can create question', "
       fill_in 'Body', with: 'text text text'
       click_on 'Ask'
 
-      expect(page).to have_content 'Your question successfully created.'
+      expect(page).to have_content 'Your question successfully created'
       expect(page).to have_content 'Test question'
       expect(page).to have_content 'text text text'
     end
@@ -35,9 +32,19 @@ feature 'User can create question', "
 
       expect(page).to have_content "Title can't be blank"
     end
+
+    scenario 'ask question with attached file' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
+      attach_file 'Files', [Rails.root.join('spec/rails_helper.rb'), Rails.root.join('spec/spec_helper.rb')]
+      click_on 'Ask'
+
+      expect(page).to have_link 'rails_helper.rb'
+      expect(page).to have_link 'spec_helper.rb'
+    end
   end
 
-  scenario 'Unauthenticated user tries to ask a question' do
+  scenario 'Unauthenticated user tries to ask a question', js: true do
     visit questions_path
     click_on 'Ask question'
 

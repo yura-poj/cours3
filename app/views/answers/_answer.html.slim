@@ -2,15 +2,24 @@
   div
     p
       = answer.body
-      = ' '
+    .files
       - if answer.files.attached?
-        - answer.files.each do |file|
-          = link_to file.filename.to_s, url_for(file)
-          = ' - '
-          = link_to 'Delete file', attachment_path(file), data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.file') }
-          = '     '
-      - if answer.author?(current_user)
-        = ' --- '
-        = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
-        = ' '
-        = link_to 'Edit', edit_answer_path(answer)
+        p
+          - answer.files.each do |file|
+            = link_to file.filename.to_s, url_for(file)
+            = ' - '
+            = link_to 'Delete file', attachment_path(file), data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.file') }
+            = '     '
+    .links
+      p
+        - if answer.links.present?
+          | Links-->
+          - answer.links.each do |link|
+            = link_to link.name, link.url
+            = ' '
+    .actions
+      p
+        - if answer.author?(current_user)
+          = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
+          = ' '
+          = link_to 'Edit', edit_answer_path(answer)

@@ -55,10 +55,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_062739) do
   create_table "links", force: :cascade do |t|
     t.string "url"
     t.string "name"
-    t.bigint "question_id"
+    t.string "linkable_type"
+    t.bigint "linkable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["question_id"], name: "index_links_on_question_id"
+    t.index ["linkable_type", "linkable_id"], name: "index_links_on_linkable"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -86,6 +87,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_02_062739) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users", column: "author_id"
-  add_foreign_key "links", "questions"
   add_foreign_key "questions", "users", column: "author_id"
 end

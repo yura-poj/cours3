@@ -4,6 +4,8 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
 
   before_action :question, only: %i[create new]
+  before_action :set_new_links, only: %i[new edit]
+
   expose :answers, -> { question.answers }
   expose :answer
 
@@ -49,6 +51,10 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :author_id, files: [])
+    params.require(:answer).permit(:body, :author_id, files: [], links_attributes: [:name, :url])
+  end
+
+  def set_new_links
+    answer.links.new
   end
 end

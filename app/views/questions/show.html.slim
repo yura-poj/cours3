@@ -29,6 +29,7 @@ h2 Reply your answer
     = ' '
     = link_to 'log in', new_user_session_path
 
-h2 Answers
-= turbo_frame_tag 'answers' do
-  = render question.answers
+.answers
+  h2 Answers
+  = turbo_frame_tag 'answers' do
+    = render question.answers

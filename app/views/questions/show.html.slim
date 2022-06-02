@@ -1,9 +1,18 @@
 h1 = question.title
 p = question.body
 
-- if question.files.attached?
-  - question.files.each do |file|
-    p = link_to file.filename.to_s, url_for(file)
+.links
+  - if question.links.present?
+    h2 Links
+    ul
+      - question.links.each do |link|
+        li = link_to link.name, link.url
+
+
+.files
+  - if question.files.attached?
+    - question.files.each do |file|
+      p = link_to file.filename.to_s, url_for(file)
 
 - if question.author?(current_user)
   p = link_to 'Delete question', question, method: :delete

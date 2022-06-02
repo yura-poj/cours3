@@ -3,6 +3,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :set_new_answer, only: :show
+  before_action :set_new_links, only: %i[new edit]
 
   expose :questions, -> { Question.with_attached_files.all }
   expose :question, find: ->(id, scope) { scope.with_attached_files.find(id) }
@@ -45,10 +46,14 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :body, :author_id, files: [])
+    params.require(:question).permit(:title, :body, :author_id, files: [], links_attributes: [:name, :url])
   end
 
   def set_new_answer
     @answer = Answer.new
+  end
+
+  def set_new_links
+    question.links.new
   end
 end

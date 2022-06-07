@@ -8,22 +8,37 @@ feature 'User can add links to question', "
   I'd like to be able to add links
 " do
   given(:user) { create(:user) }
-  given(:gist_url) { 'https://gist.github.com/vkurennov/743f9367caa1039874af5a2244e1b44c' }
+  given(:right_url) { 'https://stackoverflow.com/questions/3089849/ruby-on-rails-submitting-an-array-in-a-form' }
+  given(:wrong_url) { 'https://stacko' }
 
-  scenario 'User adds link when asks question', js: true do
-    sign_in(user)
-    visit questions_path
+  describe 'User adds link', js: true do
+    background do
+      sign_in(user)
+      visit questions_path
 
-    click_on 'Ask question'
+      click_on 'Ask question'
 
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'text text text'
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'text text text'
 
-    fill_in ' Name', with: 'My gist'
-    fill_in ' Url', with: gist_url
+      fill_in ' Name', with: 'My url'
+    end
 
-    click_on 'Ask'
 
-    expect(page).to have_link 'My gist', href: gist_url
+    scenario 'without errors' do
+      fill_in ' Url', with: right_url
+
+      click_on 'Ask'
+
+      expect(page).to have_link 'My url', href: right_url
+    end
+
+    scenario 'with errors' do
+      fill_in ' Url', with: wrong_url
+
+      click_on 'Ask'
+
+      expect(page).to have_content 'Links url is not valid'
+    end
   end
 end

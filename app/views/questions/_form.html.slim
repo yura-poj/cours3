@@ -19,4 +19,10 @@
       = links_form.input :name, multiple: true
       = links_form.input :url
 
+    p Reward
+    p = form.simple_fields_for :reward do |reward_form|
+      = reward_form.input :title
+      = reward_form.label :image
+      = reward_form.file_field :image
+
     p = form.submit 'Ask'

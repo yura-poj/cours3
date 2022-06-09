@@ -87,7 +87,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rails-controller-testing'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.2'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
 end

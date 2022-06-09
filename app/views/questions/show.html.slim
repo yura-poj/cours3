@@ -1,6 +1,12 @@
 h1 = question.title
 p = question.body
 
+.reward
+  - if question.reward.present?
+    h2 Reward
+    p = question.reward.title
+    - if question.reward.image.present?
+      img src="#{url_for(question.reward.image)}" width=200 height=200
 .links
   - if question.links.present?
     h2 Links

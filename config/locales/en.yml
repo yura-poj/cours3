@@ -36,3 +36,4 @@ en:
       question: 'You try to delete your question! Are you sure?'
       answer: 'You try to delete your answer! Are you sure?'
       file: 'You try to delete your file! Are you sure?'
+      link: 'You try to delete your link! Are you sure?'

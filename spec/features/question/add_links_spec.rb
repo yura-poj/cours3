@@ -8,7 +8,7 @@ feature 'User can add links to question', "
   I'd like to be able to add links
 " do
   given(:user) { create(:user) }
-  given(:right_url) { 'https://stackoverflow.com/questions/3089849/ruby-on-rails-submitting-an-array-in-a-form' }
+  given(:right_url) { 'https://stackoverflow.com' }
   given(:wrong_url) { 'https://stacko' }
 
   describe 'User adds link', js: true do

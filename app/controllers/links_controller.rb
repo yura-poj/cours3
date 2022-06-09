@@ -1,14 +1,12 @@
-# frozen_string_literal: true
-
-class AttachmentsController < ApplicationController
-  before_action :set_file
+class LinksController < ApplicationController
+  before_action :set_link
 
   def destroy
-    @record = @file.record
+    @record = @link.linkable
     respond_to do |format|
       if @record.author?(current_user)
-        @file.purge
-        flash.now[:success] = 'Your file successfully deleted'
+        @link.destroy
+        flash.now[:success] = 'Your link successfully deleted'
         format.turbo_stream { render "shared/#{@record.class.to_s.downcase}_update" }
       else
         format.html { redirect_back fallback_location: root_path, status: :unprocessable_entity }
@@ -18,7 +16,7 @@ class AttachmentsController < ApplicationController
 
   private
 
-  def set_file
-    @file = ActiveStorage::Attachment.find(params[:id])
+  def set_link
+    @link = Link.find(params[:id])
   end
 end

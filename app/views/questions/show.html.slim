@@ -6,8 +6,8 @@ p = question.body
     h2 Links
     ul
       - question.links.each do |link|
-        li = link_to link.name, link.url
-
+        li
+          = link_to link.name, link.url
 
 .files
   - if question.files.attached?

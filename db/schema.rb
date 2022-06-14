@@ -48,9 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_033732) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "author_id"
-    t.bigint "best_answer_id"
     t.index ["author_id"], name: "index_answers_on_author_id"
-    t.index ["best_answer_id"], name: "index_answers_on_best_answer_id"
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
@@ -80,7 +78,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_033732) do
     t.datetime "updated_at", null: false
     t.bigint "author_id"
     t.bigint "reward_id"
+    t.bigint "best_answer_id"
     t.index ["author_id"], name: "index_questions_on_author_id"
+    t.index ["best_answer_id"], name: "index_questions_on_best_answer_id"
     t.index ["reward_id"], name: "index_questions_on_reward_id"
   end
 
@@ -110,6 +110,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_09_033732) do
   add_foreign_key "answers", "users", column: "author_id"
   add_foreign_key "earned_rewards", "rewards"
   add_foreign_key "earned_rewards", "users"
+  add_foreign_key "questions", "answers", column: "best_answer_id"
   add_foreign_key "questions", "users", column: "author_id"
   add_foreign_key "rewards", "questions"
 end

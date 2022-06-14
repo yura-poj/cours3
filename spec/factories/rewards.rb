@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :reward do
     title { "MyString" }
-    question { nil }
+    question
   end
 end

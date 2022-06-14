@@ -1,0 +1,3 @@
+= turbo_stream.replace answer, render(answer, question: answer.question)
+= turbo_stream.replace answer, render(@previous_answer, question: @previous_answer.question) if @previous_answer
+= turbo_stream.prepend('flash', partial: 'shared/flash')

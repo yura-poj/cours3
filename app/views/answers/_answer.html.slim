@@ -1,7 +1,11 @@
 = turbo_frame_tag answer do
   div
     p
+      - if answer.best?
+        = 'BEST --> '
       = answer.body
+      = ' '
+      = link_to 'Best', set_best_answer_path(answer)
     .files
       - if answer.files.attached?
         p

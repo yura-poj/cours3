@@ -13,4 +13,8 @@ class Answer < ApplicationRecord
   def author?(user)
     author == user
   end
+
+  def best?
+    self == question.best_answer
+  end
 end

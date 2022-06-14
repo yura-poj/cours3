@@ -6,8 +6,11 @@ Rails.application.routes.draw do
 
   resources :attachments, only: %i[destroy]
   resources :links, only: %i[destroy]
+  resources :earned_rewards, only: %i[index]
 
   resources :questions do
-    resources :answers, shallow: true, only: %i[create destroy update edit new]
+    resources :answers, shallow: true, only: %i[create destroy update edit new] do
+      get 'set_best', on: :member
+    end
   end
 end

@@ -1,0 +1,7 @@
+p
+  = reward.title
+  | (
+  = link_to 'Question', reward.question
+  | )
+- if reward.image.present?
+  img src="#{url_for(reward.image)}" width=200 height=200

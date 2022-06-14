@@ -44,6 +44,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  def set_best
+    @previous_answer = answer.question.set_best_answer(answer)
+    redirect_to answer.question
+    # respond_to do |format|
+    #   flash.now[:success] = 'Your link successfully deleted'
+    #   format.turbo_stream
+    # end
+  end
+
   private
 
   def question

@@ -1,6 +1,6 @@
 = turbo_frame_tag answer do
   = form_with model: [@question, answer] do |form|
-    = render 'shared/errors', resource: answer
+    = render 'shared/errors', resource: @answer
 
     p
       = form.label :body

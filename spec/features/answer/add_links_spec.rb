@@ -21,12 +21,12 @@ feature 'User can add links to answer', "
     fill_in 'Body', with: 'My answer'
 
     fill_in 'Link name', with: 'My gist'
-    fill_in 'Url', with: gist_url
+    fill_in 'Url', with: right_url
 
     click_on 'Reply'
 
     within '.answers' do
-      expect(page).to have_link 'My gist', href: gist_url
+      expect(page).to have_link 'My gist', href: right_url
     end
   end
 end

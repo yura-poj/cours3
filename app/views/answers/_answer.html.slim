@@ -1,16 +1,33 @@
 = turbo_frame_tag answer do
   div
     p
+      - if answer.best?
+        = 'BEST --> '
       = answer.body
       = ' '
+      = link_to 'Best', set_best_answer_path(answer)
+    .files
       - if answer.files.attached?
-        - answer.files.each do |file|
-          = link_to file.filename.to_s, url_for(file)
-          = ' - '
-          = link_to 'Delete file', attachment_path(file), data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.file') }
-          = '     '
-      - if answer.author?(current_user)
-        = ' --- '
-        = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
-        = ' '
-        = link_to 'Edit', edit_answer_path(answer)
+        p
+          - answer.files.each do |file|
+            = link_to file.filename.to_s, url_for(file)
+            = ' - '
+            = link_to 'Delete file', attachment_path(file), data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.file') }
+            = '     '
+    .links
+      p
+        - if answer.links.present?
+          | Links-->
+          - answer.links.each do |link|
+            = link_to link.name, link.url
+            - if answer.author?(current_user)
+              | (
+              = link_to 'Delete link', link, data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.link') }
+              | )
+            = ' '
+    .actions
+      p
+        - if answer.author?(current_user)
+          = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
+          = ' '
+          = link_to 'Edit', edit_answer_path(answer)

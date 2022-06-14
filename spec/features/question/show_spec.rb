@@ -24,7 +24,7 @@ feature 'User can watch question with answers', "
     end
   end
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user', js: true do
     background do
       sign_in(user)
 
@@ -32,7 +32,8 @@ feature 'User can watch question with answers', "
       click_on question.title
     end
 
-    scenario 'create answer', js: true do
+    scenario 'create answer' do
+      click_on 'Reply answer'
       text = 'test text'
       fill_in 'Body', with: text
       click_on 'Reply'

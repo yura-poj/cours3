@@ -4,6 +4,8 @@ class AnswersController < ApplicationController
   before_action :authenticate_user!
 
   before_action :question, only: %i[create new]
+  before_action :set_new_links, only: %i[new edit]
+
   expose :answers, -> { question.answers }
   expose :answer
 
@@ -42,6 +44,15 @@ class AnswersController < ApplicationController
     end
   end
 
+  def set_best
+    @previous_answer = answer.question.set_best_answer(answer)
+    redirect_to answer.question
+    # respond_to do |format|
+    #   flash.now[:success] = 'Your link successfully deleted'
+    #   format.turbo_stream
+    # end
+  end
+
   private
 
   def question
@@ -49,6 +60,10 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :author_id, files: [])
+    params.require(:answer).permit(:body, :author_id, files: [], links_attributes: %i[name url])
+  end
+
+  def set_new_links
+    answer.links.new
   end
 end

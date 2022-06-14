@@ -5,10 +5,10 @@ FactoryBot.define do
     "Answer#{n}"
   end
 
-  factory :answer do
+  factory :answer, aliases: [:best_answer] do
     body
     question
-    author { create(:user) }
+    author
 
     trait :invalid do
       body { nil }

@@ -57,6 +57,10 @@ gem 'slim-rails'
 
 gem 'aws-sdk-s3', require: false
 
+gem 'simple_form'
+
+gem 'open-uri'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'byebug'
@@ -83,7 +87,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'rails-controller-testing'
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', '~> 4.2'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'
 end

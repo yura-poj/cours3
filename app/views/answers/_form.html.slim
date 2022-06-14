@@ -1,6 +1,6 @@
 = turbo_frame_tag answer do
   = form_with model: [@question, answer] do |form|
-    = render 'shared/errors', resource: answer
+    = render 'shared/errors', resource: @answer
 
     p
       = form.label :body
@@ -13,5 +13,14 @@
     p
       = form.label :files
       = form.file_field :files, multiple: true, direct_upload: true
+
+    p Links
+    p = form.fields_for :links do |l|
+      p
+        = l.label :name, "Link name"
+        = l.text_field :name
+      p
+        = l.label :url
+        = l.text_field :url
 
     p = form.submit 'Reply'

@@ -1,9 +1,24 @@
 h1 = question.title
 p = question.body
 
-- if question.files.attached?
-  - question.files.each do |file|
-    p = link_to file.filename.to_s, url_for(file)
+.reward
+  - if question.reward.present?
+    h2 Reward
+    p = question.reward.title
+    - if question.reward.image.present?
+      img src="#{url_for(question.reward.image)}" width=200 height=200
+.links
+  - if question.links.present?
+    h2 Links
+    ul
+      - question.links.each do |link|
+        li
+          = link_to link.name, link.url
+
+.files
+  - if question.files.attached?
+    - question.files.each do |file|
+      p = link_to file.filename.to_s, url_for(file)
 
 - if question.author?(current_user)
   p = link_to 'Delete question', question, method: :delete
@@ -20,6 +35,7 @@ h2 Reply your answer
     = ' '
     = link_to 'log in', new_user_session_path
 
-h2 Answers
-= turbo_frame_tag 'answers' do
-  = render question.answers
+.answers
+  h2 Answers
+  = turbo_frame_tag 'answers' do
+    = render question.answers

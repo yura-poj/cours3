@@ -5,6 +5,7 @@ class QuestionsController < ApplicationController
   before_action :set_new_answer, only: :show
   before_action :set_new_links, only: %i[new edit]
   before_action :set_new_reward, only: %i[new edit]
+  after_action :publish_question, only: %i[create]
 
   expose :questions, -> { Question.with_attached_files.all }
   expose :question, find: ->(id, scope) { scope.with_attached_files.find(id) }
@@ -61,5 +62,14 @@ class QuestionsController < ApplicationController
 
   def set_new_reward
     question.build_reward
+  end
+
+  def publish_question
+    return if question.errors.any?
+    ActionCable.server.broadcast(
+      'questions',
+      ApplicationController.render( partial: 'questions/question_light', locals: { question: question })
+    )
+    # QuestionChannel.send(ApplicationController.render( partial: 'questions/question', locals: { question: question }) )
   end
 end

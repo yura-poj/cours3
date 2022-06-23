@@ -1,0 +1,22 @@
+= turbo_frame_tag question do
+  div
+    p = link_to question.title, question_path(question), data: { turbo_frame: '_top'}
+    p = question.body
+    p = question.answers.size
+    .files
+      - if question.files.attached?
+        - question.files.each do |file|
+          = link_to file.filename.to_s, url_for(file)
+          = ' - '
+          = link_to 'Delete file', attachment_path(file), data: {turbo_method: :delete, turbo_confirm: t('confirm.delete.file')}
+          = '     '
+    .links
+      p
+        - if question.links.present?
+          - question.links.each do |link|
+            = link_to link.name, link.url
+            - if question.author?(current_user)
+              | (
+              = link_to 'Delete link', link, data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.link') }
+              | )
+            =  ' '

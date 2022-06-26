@@ -27,7 +27,7 @@ feature 'User can create question', "
       expect(page).to have_content 'text text text'
     end
 
-    scenario 'asks a question with errors', js:true do
+    scenario 'asks a question with errors', js: true do
       click_on 'Ask'
 
       expect(page).to have_content "Title can't be blank"
@@ -43,6 +43,33 @@ feature 'User can create question', "
       expect(page).to have_link 'spec_helper.rb'
     end
   end
+
+  # context "mulitple sessions" do
+  #   scenario "question appears on another user's page" do
+  #     Capybara.using_session('user') do
+  #       sign_in(user)
+  #       visit questions_path
+  #     end
+  #
+  #     Capybara.using_session('guest') do
+  #       visit questions_path
+  #     end
+  #
+  #     Capybara.using_session('user') do
+  #       click_on 'Ask question'
+  #       fill_in 'Title', with: 'Test question'
+  #       fill_in 'Body', with: 'test text'
+  #       click_on 'Ask'
+  #
+  #       expect(page).to have_content 'Test question'
+  #       expect(page).to have_content 'test text'
+  #     end
+  #
+  #     Capybara.using_session('guest') do
+  #       expect(page).to have_content 'Test question'
+  #     end
+  #   end
+  # end
 
   # scenario 'Unauthenticated user tries to ask a question', js: true do
   #   visit questions_path

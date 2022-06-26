@@ -1,2 +1,2 @@
-= turbo_stream.prepend 'answers', render(answer, question: answer.question)
+= turbo_stream.prepend 'answers', render(@answer, question: @answer.question)
 = turbo_stream.prepend('flash', partial: 'shared/flash')

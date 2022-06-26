@@ -4,8 +4,6 @@
       - if answer.best?
         = 'BEST --> '
       = answer.body
-      = ' '
-      = link_to 'Best', set_best_answer_path(answer) if answer.question.author?(current_user)
     .files
       - if answer.files.attached?
         p
@@ -25,9 +23,3 @@
               = link_to 'Delete link', link, data: { turbo_method: :delete, turbo_confirm: t('confirm.delete.link') }
               | )
             = ' '
-    .actions
-      p
-        - if answer.author?(current_user)
-          = link_to 'Delete answer', answer, data: { turbo_method: :delete,  turbo_confirm: t('confirm.delete.answer') }
-          = ' '
-          = link_to 'Edit', edit_answer_path(answer)

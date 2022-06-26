@@ -18,7 +18,6 @@ feature 'User can add reward to question', "
 
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'text text text'
-
     end
 
     scenario 'without errors' do
@@ -31,4 +30,3 @@ feature 'User can add reward to question', "
     end
   end
 end
-

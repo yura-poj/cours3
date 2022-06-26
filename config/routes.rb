@@ -13,4 +13,6 @@ Rails.application.routes.draw do
       get 'set_best', on: :member
     end
   end
+
+  mount ActionCable.server => '/cable'
 end

@@ -8,8 +8,8 @@ feature 'User can destroy links from question', "
   I'd like to be able to add links
 " do
   given(:user) { create(:user) }
-  given!(:question) { create(:question, author: user)}
-  given!(:link) { create(:link, linkable: question)}
+  given!(:question) { create(:question, author: user) }
+  given!(:link) { create(:link, linkable: question) }
 
   scenario 'User destroy link successfully', js: true do
     sign_in(user)
@@ -20,4 +20,3 @@ feature 'User can destroy links from question', "
     expect(page).to_not have_link link.name, href: link.url
   end
 end
-

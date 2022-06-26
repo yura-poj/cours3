@@ -24,7 +24,6 @@ feature 'User can add links to question', "
       fill_in ' Name', with: 'My url'
     end
 
-
     scenario 'without errors' do
       fill_in ' Url', with: right_url
 

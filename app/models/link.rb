@@ -7,10 +7,8 @@ class Link < ApplicationRecord
   validate :check_url
 
   def check_url
-    begin
-      URI.open(self.url).status.first == '200'
-    rescue SocketError, Errno::ENOENT
-      errors.add(:url, 'is not valid')
-    end
+    URI.open(url).status.first == '200'
+  rescue SocketError, Errno::ENOENT
+    errors.add(:url, 'is not valid')
   end
 end

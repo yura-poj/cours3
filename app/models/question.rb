@@ -23,7 +23,7 @@ class Question < ApplicationRecord
 
     previous_answer = best_answer
     self.best_answer = answer
-    answer.author.rewards.push(reward) if reward && ! answer.author.has_reward?(reward)
+    answer.author.rewards.push(reward) if reward && !answer.author.has_reward?(reward)
     save!
 
     previous_answer

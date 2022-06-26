@@ -49,7 +49,7 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :body, :author_id, files: [], links_attributes: %i[name url],
-                                     reward_attributes: %i[title image])
+                                                                reward_attributes: %i[title image])
   end
 
   def set_new_answer
@@ -66,9 +66,10 @@ class QuestionsController < ApplicationController
 
   def publish_question
     return if question.errors.any?
+
     ActionCable.server.broadcast(
       'questions',
-      ApplicationController.render( partial: 'questions/question_light', locals: { question: question })
+      ApplicationController.render(partial: 'questions/question_light', locals: { question: question })
     )
   end
 end

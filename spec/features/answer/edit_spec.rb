@@ -17,7 +17,7 @@ feature 'User can create answer', "
     expect(page).to_not have_link 'Edit'
   end
 
-  describe 'Auth user', js:true do
+  describe 'Auth user', js: true do
     scenario 'edits his answer' do
       sign_in user
       visit question_path(question)

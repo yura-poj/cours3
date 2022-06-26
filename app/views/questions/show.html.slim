@@ -1,41 +1,42 @@
-h1 = question.title
-p = question.body
+= content_tag :div, id: "question-#{question.id}"
+  h1 = question.title
+  p = question.body
 
-.reward
-  - if question.reward.present?
-    h2 Reward
-    p = question.reward.title
-    - if question.reward.image.present?
-      img src="#{url_for(question.reward.image)}" width=200 height=200
-.links
-  - if question.links.present?
-    h2 Links
-    ul
-      - question.links.each do |link|
-        li
-          = link_to link.name, link.url
+  .reward
+    - if question.reward.present?
+      h2 Reward
+      p = question.reward.title
+      - if question.reward.image.present?
+        img src="#{url_for(question.reward.image)}" width=200 height=200
+  .links
+    - if question.links.present?
+      h2 Links
+      ul
+        - question.links.each do |link|
+          li
+            = link_to link.name, link.url
 
-.files
-  - if question.files.attached?
-    - question.files.each do |file|
-      p = link_to file.filename.to_s, url_for(file)
+  .files
+    - if question.files.attached?
+      - question.files.each do |file|
+        p = link_to file.filename.to_s, url_for(file)
 
-- if question.author?(current_user)
-  p = link_to 'Delete question', question, method: :delete
+  - if question.author?(current_user)
+    p = link_to 'Delete question', question, method: :delete
 
-h2 Reply your answer
+  h2 Reply your answer
 
-- if user_signed_in?
-  = turbo_frame_tag Answer.new do
-    div = link_to 'Reply answer', new_question_answer_path(question), data: { turbo_frame: dom_id(Answer.new) }
+  - if user_signed_in?
+    = turbo_frame_tag Answer.new do
+      div = link_to 'Reply answer', new_question_answer_path(question), data: { turbo_frame: dom_id(Answer.new) }
 
-- else
-  p
-    | You need to
-    = ' '
-    = link_to 'log in', new_user_session_path
+  - else
+    p
+      | You need to
+      = ' '
+      = link_to 'log in', new_user_session_path
 
-.answers
-  h2 Answers
-  = turbo_frame_tag 'answers' do
-    = render question.answers
+  .answers
+    h2 Answers
+    = turbo_frame_tag 'answers' do
+      = render question.answers

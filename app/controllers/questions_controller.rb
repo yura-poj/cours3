@@ -70,6 +70,5 @@ class QuestionsController < ApplicationController
       'questions',
       ApplicationController.render( partial: 'questions/question_light', locals: { question: question })
     )
-    # QuestionChannel.send(ApplicationController.render( partial: 'questions/question', locals: { question: question }) )
   end
 end

@@ -5,6 +5,7 @@ class AnswersController < ApplicationController
 
   before_action :question, only: %i[create new]
   before_action :set_new_links, only: %i[new edit]
+  after_action :publish_answers, only: %i[create]
 
   expose :answers, -> { question.answers }
   expose :answer
@@ -60,10 +61,19 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:body, :author_id, files: [], links_attributes: %i[name url])
+    params.require(:answer).permit(:body, :question_id, :author_id, files: [], links_attributes: %i[name url])
   end
 
   def set_new_links
     answer.links.new
+  end
+
+  def publish_answers
+    return if answer.errors.any?
+    ActionCable.server.broadcast(
+      'answers',
+      { body: ApplicationController.render( partial: 'answers/answer_light', locals: { answer: @answer }),
+        question: question.id }
+    )
   end
 end

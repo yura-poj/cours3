@@ -161,6 +161,8 @@ GEM
     jwt (2.4.1)
     launchy (2.5.0)
       addressable (~> 2.7)
+    letter_opener (1.7.0)
+      launchy (~> 2.2)
     loofah (2.16.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -383,6 +385,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   launchy
+  letter_opener
   omniauth
   omniauth-github!
   omniauth-google-oauth2

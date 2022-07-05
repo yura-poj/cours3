@@ -5,10 +5,11 @@ class User < ApplicationRecord
   has_many :rewards, through: :earned_rewards
   has_many :authorizations, dependent: :destroy
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:github, :google_oauth2]
+         :omniauthable, :confirmable,
+         omniauth_providers: [:github, :google_oauth2]
 
 
   def has_reward?(reward)

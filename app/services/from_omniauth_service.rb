@@ -27,6 +27,7 @@ class FromOmniauthService
   def update_info(user)
     user.name = auth.info[:name]
     user.image_url = auth.info[:image]
+    user.skip_confirmation!
     user.save!
   end
 end

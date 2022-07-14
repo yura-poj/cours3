@@ -5,7 +5,7 @@
         = 'BEST --> '
       = answer.body
       = ' '
-      = link_to 'Best', set_best_answer_path(answer) if answer.question.author?(current_user)
+      = link_to 'Best', set_best_answer_path(answer) if can? :set_best, answer
     .files
       - if answer.files.attached?
         p

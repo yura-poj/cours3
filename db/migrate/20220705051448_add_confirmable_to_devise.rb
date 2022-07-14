@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddConfirmableToDevise < ActiveRecord::Migration[7.0]
   def change
     add_column :users, :confirmation_token, :string
@@ -11,6 +13,5 @@ class AddConfirmableToDevise < ActiveRecord::Migration[7.0]
     # users as confirmed, do the following
     User.update_all confirmed_at: DateTime.now
     # All existing user accounts should be able to log in after this.
-
   end
 end

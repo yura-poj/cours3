@@ -10,6 +10,8 @@ class AnswersController < ApplicationController
   expose :answers, -> { question.answers }
   expose :answer
 
+  authorize_resource
+
   def create
     @answer = answers.new(answer_params)
     respond_to do |format|
@@ -35,17 +37,14 @@ class AnswersController < ApplicationController
 
   def destroy
     respond_to do |format|
-      if answer.author?(current_user)
-        answer.destroy
-        flash.now[:success] = 'Your answer successfully deleted'
-        format.turbo_stream
-      else
-        format.html { redirect_back fallback_location: root_path, status: :unprocessable_entity }
-      end
+      answer.destroy
+      flash.now[:success] = 'Your answer successfully deleted'
+      format.turbo_stream
     end
   end
 
   def set_best
+    authorize! :set_best, answer
     @previous_answer = answer.question.set_best_answer(answer)
     redirect_to answer.question
     # respond_to do |format|

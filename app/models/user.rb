@@ -9,11 +9,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, :confirmable,
-         omniauth_providers: [:github, :google_oauth2]
-
+         omniauth_providers: %i[github google_oauth2]
 
   def has_reward?(reward)
     rewards.include?(reward)
   end
-
 end

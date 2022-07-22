@@ -1,16 +1,19 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'Profiles API', type: :request do
-  let(:headers) {  { "CONTENT_TYPE" => "application/json",
-                     "ACCEPT" => 'application/json' } }
+  let(:headers) do
+    { 'CONTENT_TYPE' => 'application/json',
+      'ACCEPT' => 'application/json' }
+  end
 
   describe 'GET /api/v1/profiles/me' do
-   let(:api_path) { '/api/v1/profiles/me' }
+    let(:api_path) { '/api/v1/profiles/me' }
 
     it_behaves_like 'API Authorizable' do
       let(:method) { :get }
     end
-
 
     context 'authorized' do
       let(:me) { create(:user) }

@@ -66,7 +66,7 @@ gem 'omniauth-github', github: 'omniauth/omniauth-github'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
 
-gem 'cancancan' #pundit is better
+gem 'cancancan' # pundit is better
 
 gem 'doorkeeper'
 

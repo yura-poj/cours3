@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApiHelpers
   def json
     @json ||= JSON.parse(response.body)
@@ -7,5 +9,3 @@ module ApiHelpers
     send method, path, headers: headers
   end
 end
-
-

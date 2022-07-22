@@ -1,41 +1,51 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe 'answers API', type: :request do
-  let(:headers) {{"CONTENT_TYPE" => "application/json",
-                  "ACCEPT" => 'application/json'}}
+  let(:headers) do
+    { 'CONTENT_TYPE' => 'application/json',
+      'ACCEPT' => 'application/json' }
+  end
 
   describe 'POST /api/v1/question/question_id/answers' do
     let(:question) { create(:question) }
     let(:api_path) { "/api/v1/questions/#{question.id}/answers" }
-    let(:user) { create(:user)}
+    let(:user) { create(:user) }
 
     it_behaves_like 'API Authorizable' do
       let(:method) { :post }
     end
 
     context 'authorized' do
-      let(:access_token) {create(:access_token)}
+      let(:access_token) { create(:access_token) }
 
       it 'returns 422 status' do
-        post api_path, params: { access_token: access_token.token, answer: attributes_for(:answer, body: ''), headers: headers }
+        post api_path,
+             params: { access_token: access_token.token, answer: attributes_for(:answer, body: ''), headers: headers }
         expect(response.status).to eq 422
       end
 
       it 'do not create answer' do
-        expect{
-          post api_path, params: { access_token: access_token.token, answer: attributes_for(:answer, body: ''), headers: headers }
-        }.to change(Answer, :count).by(0)
+        expect do
+          post api_path,
+               params: { access_token: access_token.token, answer: attributes_for(:answer, body: ''), headers: headers }
+        end.to change(Answer, :count).by(0)
       end
 
       it 'returns 201 status' do
-        post api_path, params: { access_token: access_token.token, answer: attributes_for(:answer, author_id: user.id), headers: headers }
+        post api_path,
+             params: { access_token: access_token.token, answer: attributes_for(:answer, author_id: user.id),
+                       headers: headers }
         expect(response.status).to eq 201
       end
 
       it 'create answer' do
-        expect{
-          post api_path, params: { access_token: access_token.token, answer: attributes_for(:answer, author_id: user.id), headers: headers }
-        }.to change(Answer, :count).by(1)
+        expect do
+          post api_path,
+               params: { access_token: access_token.token, answer: attributes_for(:answer, author_id: user.id),
+                         headers: headers }
+        end.to change(Answer, :count).by(1)
       end
     end
   end
@@ -50,7 +60,7 @@ describe 'answers API', type: :request do
     end
 
     context 'authorized' do
-      let(:access_token) {create(:access_token)}
+      let(:access_token) { create(:access_token) }
 
       before do
         get api_path, params: { access_token: access_token.token }, headers: headers
@@ -83,7 +93,7 @@ describe 'answers API', type: :request do
   end
 
   describe 'DELETE /api/v1/answers/id' do
-    let!(:answer) {create(:answer)}
+    let!(:answer) { create(:answer) }
     let(:api_path) { "/api/v1/answers/#{answer.id}" }
 
     it_behaves_like 'API Authorizable' do
@@ -91,7 +101,7 @@ describe 'answers API', type: :request do
     end
 
     context 'authorized' do
-      let(:access_token) {create(:access_token)}
+      let(:access_token) { create(:access_token) }
 
       it 'returns 200 status' do
         delete api_path, params: { access_token: access_token.token, headers: headers }
@@ -99,15 +109,15 @@ describe 'answers API', type: :request do
       end
 
       it 'delete answer' do
-        expect{
+        expect do
           delete api_path, params: { access_token: access_token.token, headers: headers }
-        }.to change(Answer, :count).by(-1)
+        end.to change(Answer, :count).by(-1)
       end
     end
   end
 
   describe 'PUT /api/v1/answers/id' do
-    let!(:answer) {create(:answer)}
+    let!(:answer) { create(:answer) }
     let(:api_path) { "/api/v1/answers/#{answer.id}" }
 
     it_behaves_like 'API Authorizable' do
@@ -115,24 +125,22 @@ describe 'answers API', type: :request do
     end
 
     context 'authorized' do
-      let(:access_token) {create(:access_token)}
+      let(:access_token) { create(:access_token) }
 
       it 'returns 422 status' do
-        put api_path, params: { access_token: access_token.token, answer: { body: ''}, headers: headers }
+        put api_path, params: { access_token: access_token.token, answer: { body: '' }, headers: headers }
         expect(response.status).to eq 422
       end
 
       it 'returns 200 status' do
-        put api_path, params: { access_token: access_token.token, answer: { body: '1'}, headers: headers }
+        put api_path, params: { access_token: access_token.token, answer: { body: '1' }, headers: headers }
         expect(response.status).to eq 200
       end
 
       it 'update answer' do
-        put api_path, params: { access_token: access_token.token, answer: { body: '1'}, headers: headers }
+        put api_path, params: { access_token: access_token.token, answer: { body: '1' }, headers: headers }
         expect(Answer.find(answer.id).body).to eq '1'
       end
     end
   end
-
 end
-

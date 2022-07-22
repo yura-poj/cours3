@@ -26,7 +26,7 @@ class Ability
     can %i[destroy update], Link, linkable: { author: user }
     can %i[destroy update], ActiveStorage::Attachment, record: { author: user }
     can %i[destroy update], Reward, question: { author: user }
-    can :set_best, Answer, question: {  author: user }
+    can :set_best, Answer, question: { author: user }
   end
 
   def admin_abilities

@@ -1,10 +1,11 @@
-class Api::V1::ProfilesController < Api::V1::BaseController
+# frozen_string_literal: true
 
-  def me
-    render json: current_resource_owner if doorkeeper_token
+module Api
+  module V1
+    class ProfilesController < Api::V1::BaseController
+      def me
+        render json: current_resource_owner if doorkeeper_token
+      end
+    end
   end
-
-  private
-
-
 end

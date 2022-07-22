@@ -1,8 +1,8 @@
+# frozen_string_literal: true
+
 class FileSerializer < ActiveModel::Serializer
   attributes :id
   attribute :url
 
-  def url
-    object.url
-  end
+  delegate :url, to: :object
 end

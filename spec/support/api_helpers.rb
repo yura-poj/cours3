@@ -3,8 +3,8 @@ module ApiHelpers
     @json ||= JSON.parse(response.body)
   end
 
-  def do_request(method, path, options = {})
-    send method, path, options
+  def do_request(method, path, headers = {})
+    send method, path, headers: headers
   end
 end
 

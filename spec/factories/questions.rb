@@ -8,7 +8,7 @@ FactoryBot.define do
   factory :question do
     title
     body { 'MyText' }
-    author
+    author_id { create(:user).id }
 
     trait :invalid do
       title { nil }

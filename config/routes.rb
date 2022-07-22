@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :users, controllers: {
     registrations: 'users/registrations',
     sessions: 'users/sessions',
@@ -15,6 +16,17 @@ Rails.application.routes.draw do
   resources :questions do
     resources :answers, shallow: true, only: %i[create destroy update edit new] do
       get 'set_best', on: :member
+    end
+  end
+
+  namespace :api do
+    namespace :v1 do
+      resources :profiles, only: [] do
+        get :me, on: :collection
+      end
+      resources :questions, only: %i[create update destroy index show] do
+        resources :answers, shallow: true, only: %i[create update destroy show]
+      end
     end
   end
 

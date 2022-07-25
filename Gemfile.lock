@@ -117,7 +117,9 @@ GEM
     case_transform (0.2)
       activesupport
     childprocess (4.1.0)
+    chronic (0.10.2)
     concurrent-ruby (1.1.10)
+    connection_pool (2.2.5)
     crass (1.0.6)
     date (3.2.2)
     debug (1.5.0)
@@ -186,6 +188,8 @@ GEM
     minitest (5.15.0)
     msgpack (1.5.1)
     multi_xml (0.6.0)
+    mustermann (1.1.2)
+      ruby2_keywords (~> 0.0.1)
     net-imap (0.2.3)
       digest
       net-protocol
@@ -277,6 +281,7 @@ GEM
     rake (13.0.6)
     rash_alt (0.4.12)
       hashie (>= 3.4)
+    redis (4.7.1)
     regexp_parser (2.3.0)
     reline (0.3.1)
       io-console (~> 0.5)
@@ -326,9 +331,18 @@ GEM
       websocket (~> 1.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
+    sidekiq (6.5.1)
+      connection_pool (>= 2.2.2)
+      rack (~> 2.0)
+      redis (>= 4.2.0)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
+    sinatra (2.2.0)
+      mustermann (~> 1.0)
+      rack (~> 2.2)
+      rack-protection (= 2.2.0)
+      tilt (~> 2.0)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -376,6 +390,8 @@ GEM
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
@@ -415,7 +431,9 @@ DEPENDENCIES
   rubocop-rails
   selenium-webdriver (~> 4.2)
   shoulda-matchers (~> 5.0)
+  sidekiq
   simple_form
+  sinatra
   slim-rails
   sprockets-rails
   stimulus-rails
@@ -423,6 +441,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
+  whenever
 
 RUBY VERSION
    ruby 3.0.1p64
